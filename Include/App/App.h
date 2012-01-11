@@ -20,6 +20,8 @@ private:
 
 	CMap Map;
 
+	int AEntity;
+
 public:
 	CApp();
 
@@ -30,4 +32,5 @@ public:
 
 	void OnEvent(SDL_Event* pEvent);
 	void OnRender();
+	void OnMove(float fTime);
 };

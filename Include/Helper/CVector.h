@@ -13,28 +13,64 @@ public:
 	float X, Y;
 
 	CVector() : X(0), Y(0) { }
-	//CVector(CVector& v) : X(v.X), Y(v.Y) { }
-	CVector(float vX, float vY) : X(vX), Y(vY) { }
+	CVector(const CVector& v) : X(v.X), Y(v.Y) { }
+	CVector(const float vX, const float vY) : X(vX), Y(vY) { }
 
-	/*CVector& operator = (CVector& v)
+	CVector& operator = (const CVector& v)
 	{
 		X = v.X;
 		Y = v.Y;
 		return *this;
-	}*/
+	}
+
+	CVector& operator += (const CVector& v)
+	{
+		X += v.X;
+		Y += v.Y;
+		return *this;
+	}
+
+	CVector& operator -= (const CVector& v)
+	{
+		X -= v.X;
+		Y -= v.Y;
+		return *this;
+	}
+
+	CVector& operator *= (const float f)
+	{
+		X *= f;
+		Y *= f;
+		return *this;
+	}
 };
 
-inline CVector operator + (CVector& a, CVector& b)
+inline CVector operator + (const CVector& a, const CVector& b)
 {
 	return CVector(a.X+b.X, a.Y+b.Y);
 }
 
-inline CVector operator - (CVector& a, CVector& b)
+inline CVector operator - (const CVector& a, const CVector& b)
 {
 	return CVector(a.X-b.X, a.Y-b.Y);
 }
 
-inline bool operator == (CVector& a, CVector& b)
+inline CVector operator * (const CVector& v, const float f)
 {
-	return ((a.X == b.Y) && (a.Y == b.Y));
+	return CVector(v.X*f, v.Y*f);
+}
+
+inline CVector operator * (const float f, const CVector& v)
+{
+	return CVector(v.X*f, v.Y*f);
+}
+
+inline bool operator == (const CVector& a, const CVector& b)
+{
+	return ((a.X == b.X) && (a.Y == b.Y));
+}
+
+inline bool operator != (const CVector& a, const CVector& b)
+{
+	return ((a.X != b.X) || (a.Y != b.Y));
 }

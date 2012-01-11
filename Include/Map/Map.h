@@ -14,17 +14,27 @@ class CMap;
 #include "Tile/TileSet.h"
 #include "Tile/Tile.h"
 
+#include "Entities/Entity.h"
+
 #include "Helper/PtrList.h"
 
 class CMap
 {
 private:
 	PtrList<CTile*> TileList;
+	PtrList<CEntity*> EntityList;
 
 	Uint16 MapW, MapH;
 
 public:
 	CMap();
+
+	int AddEntity(CEntity* pEntity);
+	void RemoveEntity(int Id);
+
+	CEntity* GetEntity(int Id);
+
+	CTile*& GetTile(Uint16 X, Uint16 Y);
 
 	bool OnInit(Uint16 Width, Uint16 Height);
 	void OnExit();

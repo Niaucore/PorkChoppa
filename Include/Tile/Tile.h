@@ -11,7 +11,7 @@ class CTile;
 
 #include <SDL/SDL.h>
 
-//#include "Map/Map.h"
+#include "Map/Map.h"
 
 #include "Helper/CVector.h"
 
@@ -27,5 +27,7 @@ public:
 	static CTile* EmptyTile;
 	static CTile* TestTile;
 
-	virtual Uint8 GetTileId(CVector Pos/*, CMap* pMap*/);
+	virtual Uint8 GetTileId(CVector Pos, CMap* pMap);
+
+	virtual void OnMove(float fTime);
 };

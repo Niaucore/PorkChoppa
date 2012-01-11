@@ -8,7 +8,7 @@
 #include "App/App.h"
 
 void CApp::OnRender() {
-	SDL_FillRect(pDisplay, NULL, SDL_MapRGB(pDisplay->format, 0, 255, 0));
+	SDL_FillRect(pDisplay, NULL, SDL_MapRGB(pDisplay->format, 0, 0, 0));
 
 	Map.OnRender(pDisplay);
 

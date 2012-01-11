@@ -24,7 +24,7 @@ public:
 	bool OnInit(const char* TileSetName, Uint16 TileWidth, Uint16 TileHeight);
 	void OnExit();
 
-	void RenderTile(Uint8 TileId, SDL_Surface* pTarget, Sint16 X, Sint16 Y);
+	void RenderTile(Uint8 TileId, SDL_Surface* pTarget, float X, float Y);
 };
 
 extern CTileSet gTileSet;

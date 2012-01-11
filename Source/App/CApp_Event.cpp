@@ -12,5 +12,8 @@ void CApp::OnEvent(SDL_Event* pEvent) {
 	case SDL_QUIT:
 		Running = false;
 		break;
+	case SDL_KEYDOWN:
+		Map.GetEntity(AEntity)->Mov = CVector(1,0);
+		break;
 	}
 }

@@ -18,10 +18,17 @@ int CApp::OnExecute() {
 
 	SDL_Event Event;
 
+	float fTime = 0.0f;
+	Uint32 t1,t2;
+
 	while (Running) {
+		t1 = SDL_GetTicks();
 		while (SDL_PollEvent(&Event))
 			OnEvent(&Event);
 		OnRender();
+		OnMove(fTime);
+		t2 = SDL_GetTicks();
+		fTime = (float)(t2-t1)/1000.0f;
 	}
 
 	return 1;

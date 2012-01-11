@@ -19,7 +19,7 @@ public:
 	size_t size() {
 		return List.size();
 	}
-	P operator [](unsigned int Id) {
+	P& operator [](unsigned int Id) {
 		return List[Id];
 	}
 	void clear() {
@@ -42,7 +42,7 @@ template<class P> int PtrList<P>::GetId(P Entry) {
 
 template<class P> void PtrList<P>::Push(P Entry) {
 	for (unsigned int i = 0; i < List.size(); i++) {
-		if (List[i] != NULL) {
+		if (List[i] == NULL) {
 			List[i] = Entry;
 			return;
 		}
@@ -56,7 +56,7 @@ template<class P> void PtrList<P>::Remove(P Entry) {
 }
 
 template<class P> void PtrList<P>::Remove(int Id) {
-	if (Id < 0) {
+	if (Id < 0 && List[Id]) {
 		delete List[Id];
 		List[Id] = NULL;
 	}

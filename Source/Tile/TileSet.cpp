@@ -25,6 +25,8 @@ bool CTileSet::OnInit(const char* TileSetName, Uint16 TileWidth, Uint16 TileHeig
 		return false;
 	SDL_FreeSurface(pTemp);
 
+	SDL_SetColorKey(pTileSet, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(pTileSet->format, 255,0,255));
+
 	TileW = TileWidth;
 	TileH = TileHeight;
 
@@ -39,17 +41,17 @@ void CTileSet::OnExit()
 	SDL_FreeSurface(pTileSet);
 }
 
-void CTileSet::RenderTile(Uint8 TileId, SDL_Surface* pTarget, Sint16 X, Sint16 Y)
+void CTileSet::RenderTile(Uint8 TileId, SDL_Surface* pTarget, float X, float Y)
 {
 	SDL_Rect TileRc;
 	TileRc.x = TileId % NumTilesX * TileW;
-	TileRc.y = TileId / NumTilesY * TileH;
+	TileRc.y = TileId / NumTilesX * TileH;
 	TileRc.w = TileW;
 	TileRc.h = TileH;
 
 	SDL_Rect DestRc;
-	DestRc.x = X;
-	DestRc.y = Y;
+	DestRc.x = X * TileW;
+	DestRc.y = Y * TileH;
 
 
 	SDL_BlitSurface(pTileSet, &TileRc, pTarget, &DestRc);
