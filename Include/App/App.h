@@ -7,13 +7,18 @@
 
 #pragma once/* APP_H_ */
 
+class CApp;
+
 #include <SDL/SDL.h>
 
-class CApp
-{
+#include "Map/Map.h"
+
+class CApp {
 private:
 	SDL_Surface* pDisplay;
 	bool Running;
+
+	CMap Map;
 
 public:
 	CApp();

@@ -7,22 +7,19 @@
 
 #include "App/App.h"
 
-CApp::CApp()
-{
+CApp::CApp() {
 	pDisplay = NULL;
 	Running = true;
 }
 
-int CApp::OnExecute()
-{
-	if(!OnInit())
+int CApp::OnExecute() {
+	if (!OnInit())
 		return -1;
 
 	SDL_Event Event;
 
-	while(Running)
-	{
-		while(SDL_PollEvent(&Event))
+	while (Running) {
+		while (SDL_PollEvent(&Event))
 			OnEvent(&Event);
 		OnRender();
 	}

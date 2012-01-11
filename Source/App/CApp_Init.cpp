@@ -7,18 +7,28 @@
 
 #include "App/App.h"
 
-bool CApp::OnInit()
-{
-	if(SDL_Init(SDL_INIT_VIDEO) > 0)
+bool CApp::OnInit() {
+	if (SDL_Init(SDL_INIT_VIDEO) > 0)
 		return false;
 
-	if((pDisplay = SDL_SetVideoMode(640,480,32,SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
-		return true;
+	if ((pDisplay = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
+		return false;
+
+	if(!gTileSet.OnInit("gfx/Tile.bmp", 8, 8))
+		return false;
+
+	if(!Map.OnInit(5,5))
+		return false;
+
 	return true;
 }
 
 void CApp::OnExit()
 {
+	Map.OnExit();
+
+	gTileSet.OnExit();
+
 	SDL_FreeSurface(pDisplay);
 	SDL_Quit();
 }

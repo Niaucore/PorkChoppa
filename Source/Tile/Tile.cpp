@@ -1,10 +1,17 @@
 /*
  * Tile.cpp
  *
- *  Created on: 07.12.2011
- *      Author: 06graefje-tim
+ *  Created on: 11.01.2012
+ *      Author: 06hofmann-sebas
  */
 
+#include "Tile/Tile.h"
 
+CTile* CTile::EmptyTile = new CTile(0);
 
+CTile* CTile::TestTile = new CTile(0);
 
+Uint8 CTile::GetTileId(CVector Pos/*, CMap* pMap*/)
+{
+	return TileId;
+}

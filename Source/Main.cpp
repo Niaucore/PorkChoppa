@@ -7,9 +7,7 @@
 
 #include "App/App.h"
 
-int main(int argc, char** argv)
-{
-	CApp Main;
-	return Main.OnExecute();
+int main(int argc, char** argv) {
+	CApp App;
+	return App.OnExecute();
 }
-

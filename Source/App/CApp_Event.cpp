@@ -5,13 +5,10 @@
  *      Author: 06graefje-tim
  */
 
-
 #include "App/App.h"
 
-void CApp::OnEvent(SDL_Event* pEvent)
-{
-	switch(pEvent->type)
-	{
+void CApp::OnEvent(SDL_Event* pEvent) {
+	switch (pEvent->type) {
 	case SDL_QUIT:
 		Running = false;
 		break;
