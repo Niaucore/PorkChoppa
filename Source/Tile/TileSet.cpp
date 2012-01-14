@@ -18,12 +18,8 @@ CTileSet::CTileSet()
 
 bool CTileSet::OnInit(const char* TileSetName, Uint16 TileWidth, Uint16 TileHeight)
 {
-	SDL_Surface* pTemp;
-	if((pTemp = SDL_LoadBMP(TileSetName)) == NULL)
+	if((pTileSet = CSurface::Load(TileSetName)) == NULL)
 		return false;
-	if((pTileSet = SDL_DisplayFormat(pTemp)) == NULL)
-		return false;
-	SDL_FreeSurface(pTemp);
 
 	SDL_SetColorKey(pTileSet, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(pTileSet->format, 255,0,255));
 
@@ -41,11 +37,14 @@ void CTileSet::OnExit()
 	SDL_FreeSurface(pTileSet);
 }
 
-void CTileSet::RenderTile(Uint8 TileId, SDL_Surface* pTarget, float X, float Y)
+void CTileSet::RenderTile(Uint8 TileIdX, Uint8 TileIdY, SDL_Surface* pTarget, float X, float Y)
 {
-	SDL_Rect TileRc;
-	TileRc.x = TileId % NumTilesX * TileW;
-	TileRc.y = TileId / NumTilesX * TileH;
+
+	CSurface::Blit(pTarget, pTileSet, X * TileW, Y * TileH, TileIdX % NumTilesX * TileW, TileIdY % NumTilesY * TileH, TileW, TileH);
+
+	/*SDL_Rect TileRc;
+	TileRc.x = TileIdX % NumTilesX * TileW;
+	TileRc.y = TileIdY % NumTilesY * TileH;
 	TileRc.w = TileW;
 	TileRc.h = TileH;
 
@@ -54,5 +53,5 @@ void CTileSet::RenderTile(Uint8 TileId, SDL_Surface* pTarget, float X, float Y)
 	DestRc.y = Y * TileH;
 
 
-	SDL_BlitSurface(pTileSet, &TileRc, pTarget, &DestRc);
+	SDL_BlitSurface(pTileSet, &TileRc, pTarget, &DestRc);*/
 }

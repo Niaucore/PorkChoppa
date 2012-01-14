@@ -11,6 +11,8 @@ class CEntity;
 
 #include <SDL/SDL.h>
 
+#include "Tile/TileSet.h"
+
 #include "Helper/CVector.h"
 
 #include "Map/Map.h"
@@ -18,19 +20,27 @@ class CEntity;
 class CEntity
 {
 private:
-	Uint8 SpriteId;
+	CVector_Ui8 Sprite;
+	float HalfSize;
 
 public:
 	CVector Pos;
-	CVector Mov;
+	CVector Mov;//Velocity
+	float JumpTimer;
 
 public:
-	CEntity(Uint8 Sprite) : SpriteId(Sprite) { }
+	CEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size) : Sprite(CVector_Ui8(SpriteX, SpriteY)), HalfSize(Half_Size), JumpTimer(0.0f) { }
 	virtual ~CEntity() { }
 
-	virtual Uint8 GetSprite(CMap* pMap);
+	virtual CVector_Ui8 GetSprite(CMap* pMap);
+
+	virtual CVector GetEntityCorner(CVector MovementDirection);
 
 	virtual bool CanMove(CVector Movement, CMap* pMap);
 
+	virtual bool CanJump(CMap* pMap);
+
 	virtual void OnMove(float fTime, CMap* pMap);
+
+	virtual void OnRender(SDL_Surface* pTarget, CMap* pMap);
 };

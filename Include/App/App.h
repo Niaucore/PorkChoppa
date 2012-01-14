@@ -11,6 +11,10 @@ class CApp;
 
 #include <SDL/SDL.h>
 
+#include <math.h>
+
+#include "Input/Input.h"
+
 #include "Map/Map.h"
 
 class CApp {

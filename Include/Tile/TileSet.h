@@ -9,6 +9,8 @@
 
 #include <SDL/SDL.h>
 
+#include "Helper/CSurface.h"
+
 class CTileSet
 {
 private:
@@ -24,7 +26,10 @@ public:
 	bool OnInit(const char* TileSetName, Uint16 TileWidth, Uint16 TileHeight);
 	void OnExit();
 
-	void RenderTile(Uint8 TileId, SDL_Surface* pTarget, float X, float Y);
+	void RenderTile(Uint8 TileId, SDL_Surface* pTarget, float X, float Y) {
+		RenderTile(TileId % NumTilesX, TileId / NumTilesX, pTarget, X, Y);
+	}
+	void RenderTile(Uint8 TileIdX, Uint8 TileIdY, SDL_Surface* pTarget, float X, float Y);
 };
 
 extern CTileSet gTileSet;

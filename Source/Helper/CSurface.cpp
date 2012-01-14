@@ -16,8 +16,8 @@ SDL_Surface* CSurface::Load(const char* FileName) {
 	return pRet;
 }
 
-void Blit(SDL_Surface* pDst, SDL_Surface* pSrc, Sint16 X, Sint16 Y,
-		Sint16 Xsrc = 0, Sint16 Ysrc = 0, Uint16 Wsrc = 0, Uint16 Hsrc = 0) {
+void CSurface::Blit(SDL_Surface* pDst, SDL_Surface* pSrc, Sint16 X, Sint16 Y,
+		Sint16 Xsrc, Sint16 Ysrc, Uint16 Wsrc, Uint16 Hsrc) {
 	if (!Wsrc)
 		Wsrc = pSrc->w;
 	if (!Hsrc)

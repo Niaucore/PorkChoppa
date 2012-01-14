@@ -7,37 +7,37 @@
 
 #pragma once /* CVECTOR_H_ */
 
-class CVector
+template<class T>class CVector_
 {
 public:
-	float X, Y;
+	T X, Y;
 
-	CVector() : X(0), Y(0) { }
-	CVector(const CVector& v) : X(v.X), Y(v.Y) { }
-	CVector(const float vX, const float vY) : X(vX), Y(vY) { }
+	CVector_() : X(0), Y(0) { }
+	CVector_(const CVector_<T>& v) : X(v.X), Y(v.Y) { }
+	CVector_(const T vX, const T vY) : X(vX), Y(vY) { }
 
-	CVector& operator = (const CVector& v)
+	CVector_<T>& operator = (const CVector_<T>& v)
 	{
 		X = v.X;
 		Y = v.Y;
 		return *this;
 	}
 
-	CVector& operator += (const CVector& v)
+	CVector_<T>& operator += (const CVector_<T>& v)
 	{
 		X += v.X;
 		Y += v.Y;
 		return *this;
 	}
 
-	CVector& operator -= (const CVector& v)
+	CVector_<T>& operator -= (const CVector_<T>& v)
 	{
 		X -= v.X;
 		Y -= v.Y;
 		return *this;
 	}
 
-	CVector& operator *= (const float f)
+	CVector_<T>& operator *= (const T f)
 	{
 		X *= f;
 		Y *= f;
@@ -45,32 +45,39 @@ public:
 	}
 };
 
-inline CVector operator + (const CVector& a, const CVector& b)
+template<class T> inline CVector_<T> operator + (const CVector_<T>& a, const CVector_<T>& b)
 {
-	return CVector(a.X+b.X, a.Y+b.Y);
+	return CVector_<T>(a.X+b.X, a.Y+b.Y);
 }
 
-inline CVector operator - (const CVector& a, const CVector& b)
+template<class T> inline CVector_<T> operator - (const CVector_<T>& a, const CVector_<T>& b)
 {
-	return CVector(a.X-b.X, a.Y-b.Y);
+	return CVector_<T>(a.X-b.X, a.Y-b.Y);
 }
 
-inline CVector operator * (const CVector& v, const float f)
+template<class T> inline CVector_<T> operator * (const CVector_<T>& v, const float f)
 {
-	return CVector(v.X*f, v.Y*f);
+	return CVector_<T>(v.X*f, v.Y*f);
 }
 
-inline CVector operator * (const float f, const CVector& v)
+template<class T> inline CVector_<T> operator * (const float f, const CVector_<T>& v)
 {
-	return CVector(v.X*f, v.Y*f);
+	return CVector_<T>(v.X*f, v.Y*f);
 }
 
-inline bool operator == (const CVector& a, const CVector& b)
+template<class T> inline bool operator == (const CVector_<T>& a, const CVector_<T>& b)
 {
 	return ((a.X == b.X) && (a.Y == b.Y));
 }
 
-inline bool operator != (const CVector& a, const CVector& b)
+template<class T> inline bool operator != (const CVector_<T>& a, const CVector_<T>& b)
 {
 	return ((a.X != b.X) || (a.Y != b.Y));
 }
+
+typedef CVector_<float> CVector_f;
+typedef CVector_<Uint8> CVector_Ui8;
+typedef CVector_<Uint16> CVector_Ui16;
+typedef CVector_<Uint32> CVector_Ui32;
+
+typedef CVector_f CVector;

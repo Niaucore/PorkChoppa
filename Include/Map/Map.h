@@ -29,6 +29,9 @@ private:
 public:
 	CMap();
 
+	Uint16 GetW() { return MapW; }
+	Uint16 GetH() { return MapH; }
+
 	int AddEntity(CEntity* pEntity);
 	void RemoveEntity(int Id);
 
@@ -36,8 +39,12 @@ public:
 
 	CTile*& GetTile(Uint16 X, Uint16 Y);
 
+	void ClearMap(CTile* ClearTile);
+
 	bool OnInit(Uint16 Width, Uint16 Height);
 	void OnExit();
+
+	bool LoadMapFromFile(const char* FileName);
 
 	void OnMove(float fTime);
 	void OnRender(SDL_Surface* pTarget);

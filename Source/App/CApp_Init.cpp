@@ -17,27 +17,27 @@ bool CApp::OnInit() {
 	if(!gTileSet.OnInit("gfx/TileSet.bmp", 16, 16))
 		return false;
 
-	if(!Map.OnInit(5,5))
+	if(!Map.LoadMapFromFile("Maps/1.map.txt"))
+		return false;
+	/*if(!Map.OnInit(9,9))
 		return false;
 
-	Map.GetTile(0,0) = CTile::TestTile;
-	Map.GetTile(1,0) = CTile::TestTile;
-	Map.GetTile(2,0) = CTile::TestTile;
-	Map.GetTile(3,0) = CTile::TestTile;
-	Map.GetTile(4,0) = CTile::TestTile;
-	Map.GetTile(0,1) = CTile::TestTile;
-	Map.GetTile(0,2) = CTile::TestTile;
-	Map.GetTile(0,3) = CTile::TestTile;
-	Map.GetTile(0,4) = CTile::TestTile;
+	Map.ClearMap(CTile::TestTile);
+	for(Uint16 X=1;X<Map.GetW()-1;X++)
+		for(Uint16 Y=1;Y<Map.GetH()-1;Y++)
+			Map.GetTile(X, Y) = CTile::EmptyTile;
+
 	Map.GetTile(4,1) = CTile::TestTile;
 	Map.GetTile(4,2) = CTile::TestTile;
 	Map.GetTile(4,3) = CTile::TestTile;
-	Map.GetTile(4,4) = CTile::TestTile;
-	Map.GetTile(1,4) = CTile::TestTile;
-	Map.GetTile(2,4) = CTile::TestTile;
-	Map.GetTile(3,4) = CTile::TestTile;
 
-	AEntity = Map.AddEntity(new CEntity(4));
+	Map.GetTile(Map.GetW() - 2, Map.GetH() - 2) = CTile::TestTile;
+	Map.GetTile(Map.GetW() - 3, Map.GetH() - 2) = CTile::TestTile;
+	Map.GetTile(Map.GetW() - 4, Map.GetH() - 2) = CTile::TestTile;
+	Map.GetTile(Map.GetW() - 2, Map.GetH() - 3) = CTile::TestTile;*/
+
+	AEntity = Map.AddEntity(new CEntity(0, 2, 0.5));
+	Map.GetEntity(AEntity)->Pos = CVector(2,2);
 
 	return true;
 }
