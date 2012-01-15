@@ -20,11 +20,9 @@ bool CApp::OnInit() {
 	if(!Map.LoadMapFromFile("Maps/1.map.txt"))
 		return false;
 
-	AEntity = Map.AddEntity(new CEntity(0, 2, 0.475));
-	Map.GetEntity(AEntity)->Pos = CVector(2,2);
+	AEntity = Map.AddEntity(new CEntity(0, 2, 0.475, CVector(2,2)));
 
-	MEntity = Map.AddEntity(new CEntity(0, 3, 0.475));
-	Map.GetEntity(MEntity)->Pos = CVector(4,2);
+	MEntity = Map.AddEntity(new CEntity(0, 3, 0.475, CVector(4,2)));
 
 	return true;
 }

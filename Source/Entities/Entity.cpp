@@ -90,7 +90,7 @@ void CEntity::Attack(CMap *pMap)
 	CVector EAttackPointY = AttackPoint + CVector(0, ((AttackPoint.Y < 0.5f) ? 1 : -1));//Extended AttackPoint in Y direction
 	CVector EAttackPointX = AttackPoint + CVector(((AttackPoint.X < 0.5f) ? -1 : 1), 0);
 
-	PtrList<CEntity*> EntityList = pMap->GetTileEntityList(AttackPoint);//TODO:Get Joint Entitylist of all Attacked Tiles (X>0.5->X+1,else:X-1|Yasdf
+	PtrList<CEntity*> EntityList = pMap->GetTileEntityList(AttackPoint);
 	PtrList<CEntity*> EEntityListY = pMap->GetTileEntityList(EAttackPointY);
 	PtrList<CEntity*> EEntityListX = pMap->GetTileEntityList(EAttackPointX);
 
@@ -108,6 +108,14 @@ void CEntity::OnHurt(CMap *pMap, CEntity *pAttacker)
 	Health--;
 }
 
+void CEntity::Jump(CVector JumpDirection, float DoubleJumpDelay, CMap *pMap)
+{
+	if(CanJump(pMap)) {
+		Mov += JumpDirection;
+		JumpTimer += DoubleJumpDelay;
+	}
+}
+
 void CEntity::OnRender(SDL_Surface* pTarget, CMap* pMap)
 {
 	CVector_Ui8 Sprite = GetSprite(pMap);
@@ -117,5 +125,5 @@ void CEntity::OnRender(SDL_Surface* pTarget, CMap* pMap)
 	gTileSet.RenderTile(SpriteX, SpriteY, pTarget, Pos.X-HalfSize, Pos.Y-HalfSize);
 
 	if(AttackTimer > 0.25f)
-		gTileSet.RenderTile(1,1,pTarget, Pos.X + (FacingLeft ? -HalfSize - gTileSet.GetTileW() : HalfSize), Pos.Y - HalfSize);//if the entity is facing right, the Attack-indicator has to be on the Tile to the right which ENDS on the Entity's Left side(It begins 1 TileW to the left)
+		gTileSet.RenderTile(1,1,pTarget, Pos.X + (FacingLeft ? -HalfSize - 1 : HalfSize), Pos.Y - HalfSize);//if the entity is facing right, the Attack-indicator has to be on the Tile to the right which ENDS on the Entity's Left side(It begins 1 TileW to the left)
 }

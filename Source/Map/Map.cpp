@@ -82,8 +82,8 @@ bool CMap::LoadMapFromFile(const char *FileName)
 
 	OnInit(MapW, MapH);
 
-	for(Uint16 Y=0;Y<MapW;Y++) {
-		for(Uint16 X=0;X<MapH;X++) {
+	for(Uint16 Y=0;Y<MapH;Y++) {
+		for(Uint16 X=0;X<MapW;X++) {
 			char TileId;
 			if(fscanf(File, " %c", &TileId) < 1)
 				return false;
