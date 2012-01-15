@@ -43,6 +43,11 @@ public:
 		Y *= f;
 		return *this;
 	}
+
+	template <class C> operator CVector_<C> ()
+	{
+		return CVector_<C>(X, Y);
+	}
 };
 
 template<class T> inline CVector_<T> operator + (const CVector_<T>& a, const CVector_<T>& b)

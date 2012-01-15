@@ -12,6 +12,7 @@ CKey CKey::Right(SDLK_RIGHT);
 CKey CKey::Up(SDLK_UP);
 CKey CKey::Down(SDLK_DOWN);
 CKey CKey::Space(SDLK_SPACE);
+CKey CKey::X(SDLK_x);
 
 CInput Input;
 

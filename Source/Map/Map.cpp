@@ -82,8 +82,8 @@ bool CMap::LoadMapFromFile(const char *FileName)
 
 	OnInit(MapW, MapH);
 
-	for(Uint16 X=0;X<MapW;X++) {
-		for(Uint16 Y=0;Y<MapH;Y++) {
+	for(Uint16 Y=0;Y<MapW;Y++) {
+		for(Uint16 X=0;X<MapH;X++) {
 			char TileId;
 			if(fscanf(File, " %c", &TileId) < 1)
 				return false;
@@ -100,6 +100,22 @@ bool CMap::LoadMapFromFile(const char *FileName)
 	}
 
 	return true;
+}
+
+PtrList<CEntity*> CMap::GetTileEntityList(CVector_Ui16 Pos)
+{
+	PtrList<CEntity*> Ret;
+	for(Uint16 i=0;i<EntityList.size();i++) {
+		CEntity* pEntity = EntityList[i];
+		if(pEntity && (CVector_Ui16)pEntity->Pos == Pos)
+			Ret.Push(EntityList[i]);
+	}
+	return Ret;
+}
+
+int CMap::GetEntityId(CEntity *pEntity)
+{
+	return EntityList.GetId(pEntity);
 }
 
 void CMap::OnRender(SDL_Surface* pTarget)

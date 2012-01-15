@@ -23,6 +23,14 @@ private:
 public:
 	CTileSet();
 
+	Uint16 GetTileW() const {
+		return TileW;
+	}
+
+	Uint16 GetTileH() const {
+		return TileH;
+	}
+
 	bool OnInit(const char* TileSetName, Uint16 TileWidth, Uint16 TileHeight);
 	void OnExit();
 

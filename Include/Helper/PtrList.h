@@ -31,6 +31,8 @@ public:
 	void Push(P Entry);
 	void Remove(int Id);
 	void Remove(P Entry);
+
+	static PtrList<P>& join(PtrList<P>& List1, PtrList<P>& List2);
 };
 
 template<class P> int PtrList<P>::GetId(P Entry) {
@@ -60,4 +62,22 @@ template<class P> void PtrList<P>::Remove(int Id) {
 		delete List[Id];
 		List[Id] = NULL;
 	}
+}
+
+template<class P> PtrList<P>& PtrList<P>::join(PtrList<P>& List1, PtrList<P>& List2)
+{
+	PtrList<P>* pLongest;
+	PtrList<P>* pShortest;
+
+	if(List1.size() < List2.size()) {
+		pLongest = &List2;
+		pShortest = &List1;
+	} else {
+		pLongest = &List1;
+		pShortest = &List2;
+	}
+
+	pLongest->List.insert(pLongest->List.end(), pShortest->List.begin(), pShortest->List.end());
+
+	return (*pLongest);
 }

@@ -11,6 +11,8 @@ class CEntity;
 
 #include <SDL/SDL.h>
 
+#include "math.h"
+
 #include "Tile/TileSet.h"
 
 #include "Helper/CVector.h"
@@ -26,10 +28,14 @@ private:
 public:
 	CVector Pos;
 	CVector Mov;//Velocity
+	bool FacingLeft; //Points in the general direction the entity is facing
+
+	Uint8 Health;
+	float AttackTimer;
 	float JumpTimer;
 
 public:
-	CEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size) : Sprite(CVector_Ui8(SpriteX, SpriteY)), HalfSize(Half_Size), JumpTimer(0.0f) { }
+	CEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size) : Sprite(CVector_Ui8(SpriteX, SpriteY)), HalfSize(Half_Size), FacingLeft(false), Health(10), AttackTimer(0.0f), JumpTimer(0.0f) { }
 	virtual ~CEntity() { }
 
 	virtual CVector_Ui8 GetSprite(CMap* pMap);
@@ -37,6 +43,10 @@ public:
 	virtual CVector GetEntityCorner(CVector MovementDirection);
 
 	virtual bool CanMove(CVector Movement, CMap* pMap);
+
+	virtual void Attack(CMap* pMap);
+
+	virtual void OnHurt(CMap* pMap, CEntity* pAttacker);
 
 	virtual bool CanJump(CMap* pMap);
 

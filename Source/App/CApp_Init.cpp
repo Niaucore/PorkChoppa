@@ -19,25 +19,12 @@ bool CApp::OnInit() {
 
 	if(!Map.LoadMapFromFile("Maps/1.map.txt"))
 		return false;
-	/*if(!Map.OnInit(9,9))
-		return false;
 
-	Map.ClearMap(CTile::TestTile);
-	for(Uint16 X=1;X<Map.GetW()-1;X++)
-		for(Uint16 Y=1;Y<Map.GetH()-1;Y++)
-			Map.GetTile(X, Y) = CTile::EmptyTile;
-
-	Map.GetTile(4,1) = CTile::TestTile;
-	Map.GetTile(4,2) = CTile::TestTile;
-	Map.GetTile(4,3) = CTile::TestTile;
-
-	Map.GetTile(Map.GetW() - 2, Map.GetH() - 2) = CTile::TestTile;
-	Map.GetTile(Map.GetW() - 3, Map.GetH() - 2) = CTile::TestTile;
-	Map.GetTile(Map.GetW() - 4, Map.GetH() - 2) = CTile::TestTile;
-	Map.GetTile(Map.GetW() - 2, Map.GetH() - 3) = CTile::TestTile;*/
-
-	AEntity = Map.AddEntity(new CEntity(0, 2, 0.5));
+	AEntity = Map.AddEntity(new CEntity(0, 2, 0.475));
 	Map.GetEntity(AEntity)->Pos = CVector(2,2);
+
+	MEntity = Map.AddEntity(new CEntity(0, 3, 0.475));
+	Map.GetEntity(MEntity)->Pos = CVector(4,2);
 
 	return true;
 }
@@ -47,6 +34,7 @@ void CApp::OnExit()
 	Map.OnExit();
 
 	Map.RemoveEntity(AEntity);
+	Map.RemoveEntity(MEntity);
 
 	gTileSet.OnExit();
 

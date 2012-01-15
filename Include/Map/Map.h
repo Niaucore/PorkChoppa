@@ -36,8 +36,11 @@ public:
 	void RemoveEntity(int Id);
 
 	CEntity* GetEntity(int Id);
+	int GetEntityId(CEntity* pEntity);
 
 	CTile*& GetTile(Uint16 X, Uint16 Y);
+
+	PtrList<CEntity*> GetTileEntityList(CVector_Ui16 Pos);
 
 	void ClearMap(CTile* ClearTile);
 

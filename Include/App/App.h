@@ -25,6 +25,7 @@ private:
 	CMap Map;
 
 	int AEntity;
+	int MEntity;
 
 public:
 	CApp();

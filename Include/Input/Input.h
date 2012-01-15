@@ -23,6 +23,7 @@ public:
 	static CKey Left;
 	static CKey Right;
 	static CKey Space;
+	static CKey X;
 };
 
 extern class CInput
