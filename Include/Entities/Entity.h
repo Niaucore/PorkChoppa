@@ -35,7 +35,7 @@ public:
 	float JumpTimer;
 
 public:
-	CEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size, CVector InitialPos, Uint8 InitialHealth = 10) : Sprite(CVector_Ui8(SpriteX, SpriteY)), HalfSize(Half_Size), Pos(InitialPos), FacingLeft(false), Health(10), AttackTimer(0.0f), JumpTimer(0.0f) { }
+	CEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size, CVector InitialPos, Uint8 InitialHealth = 3) : Sprite(CVector_Ui8(SpriteX, SpriteY)), HalfSize(Half_Size), Pos(InitialPos), FacingLeft(false), Health(InitialHealth), AttackTimer(0.0f), JumpTimer(0.0f) { }
 	virtual ~CEntity() { }
 
 	virtual CVector_Ui8 GetSprite(CMap* pMap);
@@ -56,3 +56,5 @@ public:
 
 	virtual void OnRender(SDL_Surface* pTarget, CMap* pMap);
 };
+
+#include "Entities/MobEntity.h"

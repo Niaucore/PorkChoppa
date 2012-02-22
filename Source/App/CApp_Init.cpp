@@ -11,18 +11,17 @@ bool CApp::OnInit() {
 	if (SDL_Init(SDL_INIT_VIDEO) > 0)
 		return false;
 
-	if ((pDisplay = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
-		return false;
-
-	if(!gTileSet.OnInit("gfx/TileSet.bmp", 16, 16))
-		return false;
-
 	if(!Map.LoadMapFromFile("Maps/1.map.txt"))
 		return false;
 
-	AEntity = Map.AddEntity(new CEntity(0, 2, 0.475, CVector(2,2)));
+	if ((pDisplay = SDL_SetVideoMode(Map.GetW() * 32, Map.GetH() * 32, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
+		return false;
 
-	MEntity = Map.AddEntity(new CEntity(0, 3, 0.475, CVector(4,2)));
+	if((pBackground = CSurface::Load("gfx/Background.bmp")) == NULL)
+			return false;
+
+	if(!gTileSet.OnInit("gfx/TileSet.bmp", 32, 32))
+		return false;
 
 	return true;
 }
@@ -31,10 +30,9 @@ void CApp::OnExit()
 {
 	Map.OnExit();
 
-	Map.RemoveEntity(AEntity);
-	Map.RemoveEntity(MEntity);
-
 	gTileSet.OnExit();
+
+	SDL_FreeSurface(pBackground);
 
 	SDL_FreeSurface(pDisplay);
 	SDL_Quit();

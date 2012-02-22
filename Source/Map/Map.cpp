@@ -9,6 +9,7 @@
 
 CMap::CMap()
 {
+	PlayerEntity = -1;
 }
 
 int CMap::AddEntity(CEntity* pEntity)
@@ -89,10 +90,21 @@ bool CMap::LoadMapFromFile(const char *FileName)
 				return false;
 			switch(TileId) {
 			case '0':
-				TileList[Y*MapW+X] = CTile::EmptyTile;
+				TileList[Y*MapW+X] = CTile::AirTile;
 				break;
 			case '1':
-				TileList[Y*MapW+X] = CTile::TestTile;
+				TileList[Y*MapW+X] = CTile::EarthTile;
+				break;
+			case '2':
+				TileList[Y*MapW+X] = CTile::StoneTile;
+				break;
+			case 'P':
+				TileList[Y*MapW+X] = CTile::AirTile;
+				PlayerEntity = AddEntity(new CEntity(0,2, 0.475f, CVector(X + 0.5f, Y + 0.5f), 10));
+				break;
+			case 'M':
+				TileList[Y*MapW+X] = CTile::AirTile;
+				AddEntity(new CMobEntity(CVector(0,3), 0.475f, CVector(X + 0.5f, Y + 0.5f), 3));
 				break;
 			}
 		}
@@ -116,6 +128,11 @@ PtrList<CEntity*> CMap::GetTileEntityList(CVector_Ui16 Pos)
 int CMap::GetEntityId(CEntity *pEntity)
 {
 	return EntityList.GetId(pEntity);
+}
+
+CEntity* CMap::GetPlayer()
+{
+	return GetEntity(PlayerEntity);
 }
 
 void CMap::OnRender(SDL_Surface* pTarget)

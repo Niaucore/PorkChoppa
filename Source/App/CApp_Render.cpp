@@ -10,6 +10,8 @@
 void CApp::OnRender() {
 	SDL_FillRect(pDisplay, NULL, SDL_MapRGB(pDisplay->format, 0, 0, 0));
 
+	CSurface::Blit(pDisplay, pBackground, 0, 0);
+
 	Map.OnRender(pDisplay);
 
 	SDL_Flip(pDisplay);

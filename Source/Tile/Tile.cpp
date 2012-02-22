@@ -9,10 +9,21 @@
 
 CTile* CTile::EmptyTile = new CTile(0, TF_PASSABLE);
 
-CTile* CTile::TestTile = new CTile(1, TF_NONE);
+CTile* CTile::AirTile = new CTile(0, TF_PASSABLE);
+CTile* CTile::EarthTile = new CTile(2, TF_NONE);
+CTile* CTile::StoneTile = new CTile(3, TF_NONE);
 
 Uint8 CTile::GetTileId(CVector Pos, CMap* pMap)
 {
+	if(this == EarthTile && pMap->GetTile(Pos.X, Pos.Y - 1) == AirTile) {
+		if(pMap->GetTile(Pos.X - 1, Pos.Y) == AirTile && pMap->GetTile(Pos.X + 1, Pos.Y) == AirTile)
+			return TileId + 5;
+		else if(pMap->GetTile(Pos.X - 1, Pos.Y) == AirTile)
+			return TileId + 2;
+		else if(pMap->GetTile(Pos.X + 1, Pos.Y) == AirTile)
+			return TileId + 4;
+		return TileId + 3;
+	}
 	return TileId;
 }
 

@@ -9,7 +9,7 @@
 
 CVector_Ui8 CEntity::GetSprite(CMap* CMap)
 {
-	if(Health < 10) return CVector_Ui8(0,1);
+	if(Health < 3) return CVector_Ui8(0,1);
 	if(FacingLeft)
 		return Sprite;
 	else return (Sprite + CVector_Ui8(1,0));
@@ -58,7 +58,24 @@ void CEntity::OnMove(float fTime, CMap* pMap)
 {
 	if(Mov != CVector(0,0))
 	{
-		if(CanMove(Mov * fTime, pMap))
+		float X = abs(Mov.X * BLOCK_SIZE), Y = abs(Mov.Y * BLOCK_SIZE);
+		float MovementAtom = 1.0f / BLOCK_SIZE;
+		float Xdir = X / abs(X), Ydir = Y / abs(Y);
+		while(X > 0 || Y > 0) {
+			if(X > 0) {
+				if(CanMove(CVector(X * MovementAtom, 0), pMap)) {
+					Pos.X += MovementAtom * Xdir;
+					--X;
+				} else { X = 0; Mov.X = 0; }
+			}
+			if(Y > 0) {
+				if(CanMove(CVector(0, Y * MovementAtom), pMap)) {
+					Pos.Y += MovementAtom * Ydir;
+					--Y;
+				} else { Y = 0; Mov.Y = 0; }
+			}
+		}
+		/*if(CanMove(Mov * fTime, pMap))
 			Pos += Mov * fTime;
 		else if(CanMove(CVector(Mov.X * fTime, 0), pMap)) {
 			Mov.Y = 0;
@@ -67,11 +84,11 @@ void CEntity::OnMove(float fTime, CMap* pMap)
 			Mov.X = 0;
 			Pos += Mov * fTime;
 		}
-		else Mov = CVector(0,0); //Stop the Entity
+		else Mov = CVector(0,0); //Stop the Entity*/
 	}
 
 	Mov *= pow(0.125f, fTime * 4);
-	Mov += CVector(0, 9.81f * fTime * 4);
+	Mov += CVector(0, 9.81f * fTime * 8);
 
 	if(AttackTimer > 0) {
 		AttackTimer -= fTime;

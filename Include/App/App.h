@@ -20,12 +20,13 @@ class CApp;
 class CApp {
 private:
 	SDL_Surface* pDisplay;
+	SDL_Surface* pBackground;
+
 	bool Running;
 
-	CMap Map;
+	bool Pause;
 
-	int AEntity;
-	int MEntity;
+	CMap Map;
 
 public:
 	CApp();

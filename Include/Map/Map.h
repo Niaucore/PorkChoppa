@@ -9,6 +9,10 @@
 
 class CMap;
 
+#define BLOCK_SIZE 32
+
+#include <math.h>
+
 #include <SDL/SDL.h>
 
 #include "Tile/TileSet.h"
@@ -26,8 +30,12 @@ private:
 
 	Uint16 MapW, MapH;
 
+	int PlayerEntity;
+
 public:
 	CMap();
+
+	CEntity* GetPlayer();
 
 	Uint16 GetW() { return MapW; }
 	Uint16 GetH() { return MapH; }

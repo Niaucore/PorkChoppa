@@ -35,7 +35,9 @@ public:
 	virtual ~CTile() { }
 
 	static CTile* EmptyTile;
-	static CTile* TestTile;
+	static CTile* AirTile;
+	static CTile* EarthTile;
+	static CTile* StoneTile;
 
 	virtual Uint8 GetTileId(CVector Pos, CMap* pMap);
 

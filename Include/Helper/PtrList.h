@@ -58,7 +58,7 @@ template<class P> void PtrList<P>::Remove(P Entry) {
 }
 
 template<class P> void PtrList<P>::Remove(int Id) {
-	if (Id < 0 && List[Id]) {
+	if (Id > 0 && List[Id]) {
 		delete List[Id];
 		List[Id] = NULL;
 	}

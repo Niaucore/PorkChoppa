@@ -8,8 +8,9 @@
 #include "App/App.h"
 
 CApp::CApp() {
-	pDisplay = NULL;
+	pDisplay = pBackground = NULL;
 	Running = true;
+	Pause = true;
 }
 
 int CApp::OnExecute() {
@@ -28,7 +29,8 @@ int CApp::OnExecute() {
 		OnRender();
 		OnMove(fTime);
 		t2 = SDL_GetTicks();
-		fTime = (float)(t2-t1)/1000.0f;
+		if(Pause) fTime = 0;
+		else fTime = (float)(t2-t1)/1000.0f;
 	}
 
 	return 1;

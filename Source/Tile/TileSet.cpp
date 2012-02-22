@@ -39,19 +39,5 @@ void CTileSet::OnExit()
 
 void CTileSet::RenderTile(Uint8 TileIdX, Uint8 TileIdY, SDL_Surface* pTarget, float X, float Y)
 {
-
 	CSurface::Blit(pTarget, pTileSet, X * TileW, Y * TileH, TileIdX % NumTilesX * TileW, TileIdY % NumTilesY * TileH, TileW, TileH);
-
-	/*SDL_Rect TileRc;
-	TileRc.x = TileIdX % NumTilesX * TileW;
-	TileRc.y = TileIdY % NumTilesY * TileH;
-	TileRc.w = TileW;
-	TileRc.h = TileH;
-
-	SDL_Rect DestRc;
-	DestRc.x = X * TileW;
-	DestRc.y = Y * TileH;
-
-
-	SDL_BlitSurface(pTileSet, &TileRc, pTarget, &DestRc);*/
 }

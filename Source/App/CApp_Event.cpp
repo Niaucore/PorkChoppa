@@ -12,5 +12,10 @@ void CApp::OnEvent(SDL_Event* pEvent) {
 	case SDL_QUIT:
 		Running = false;
 		break;
+	case SDL_ACTIVEEVENT:
+		if(pEvent->active.gain == 0)
+			Pause = true;
+		else Pause = false;
+		break;
 	}
 }
