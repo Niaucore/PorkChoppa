@@ -14,5 +14,13 @@ void CApp::OnRender() {
 
 	Map.OnRender(pDisplay);
 
+	char FpsString[20];
+	itoa((int)FPS, FpsString, 10);
+	int i=0;
+	while(FpsString[i] != '\0') {
+		gTileSet.RenderTile(FpsString[i]-'0',15,pDisplay,0+i,0);
+		i++;
+	}
+
 	SDL_Flip(pDisplay);
 }

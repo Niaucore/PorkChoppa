@@ -28,6 +28,9 @@ private:
 
 	CMap Map;
 
+	float FPS;
+	float m_fTime;
+
 public:
 	CApp();
 

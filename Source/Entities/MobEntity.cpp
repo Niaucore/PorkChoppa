@@ -27,7 +27,7 @@ void CMobEntity::OnMove(float fTime, CMap* pMap)//TODO:Do something
 
 	if(!CanMove(ScheduledMovement, pMap))
 		MakeMovementDecision();
-	else Mov += ScheduledMovement * fTime;
+	else Vel += ScheduledMovement * fTime;
 
 	if(DecisionTimer > 0) {
 		DecisionTimer -= fTime;

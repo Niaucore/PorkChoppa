@@ -27,7 +27,8 @@ private:
 
 public:
 	CVector Pos;
-	CVector Mov;//Velocity
+	CVector Mov;//Scheduled Movement, which is consistent due to Pixel-Perfect Collision Detection
+	CVector Vel;//Velocity
 	bool FacingLeft; //Points in the general direction the entity is facing
 
 	Uint8 Health;

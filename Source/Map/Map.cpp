@@ -100,11 +100,11 @@ bool CMap::LoadMapFromFile(const char *FileName)
 				break;
 			case 'P':
 				TileList[Y*MapW+X] = CTile::AirTile;
-				PlayerEntity = AddEntity(new CEntity(0,2, 0.475f, CVector(X + 0.5f, Y + 0.5f), 10));
+				PlayerEntity = AddEntity(new CEntity(0,2, 0.46875f/*0.5 - 1/32(ein Pixel)*/, CVector(X + 0.5f, Y + 0.5f), 10));
 				break;
 			case 'M':
 				TileList[Y*MapW+X] = CTile::AirTile;
-				AddEntity(new CMobEntity(CVector(0,3), 0.475f, CVector(X + 0.5f, Y + 0.5f), 3));
+				AddEntity(new CMobEntity(CVector(0,3), 0.46875f, CVector(X + 0.5f, Y + 0.5f), 3));
 				break;
 			}
 		}

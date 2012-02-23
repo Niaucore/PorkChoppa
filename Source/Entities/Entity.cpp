@@ -34,7 +34,7 @@ bool CEntity::CanMove(CVector MovDir, CMap* pMap)
 
 bool CEntity::CanJump(CMap* pMap)
 {
-	return (!CanMove(CVector(0, 0.05 * HalfSize), pMap) && CanMove(CVector(0, -1 * HalfSize), pMap) && JumpTimer == 0);
+	return (!CanMove(CVector(0, 2 * HalfSize), pMap) && CanMove(CVector(0, -1 * HalfSize), pMap) && JumpTimer == 0);
 }
 
 CVector CEntity::GetEntityCorner(CVector MovDir)
@@ -56,23 +56,28 @@ CVector CEntity::GetEntityCorner(CVector MovDir)
 
 void CEntity::OnMove(float fTime, CMap* pMap)
 {
-	if(Mov != CVector(0,0))
+	if(Vel != CVector(0,0))
 	{
-		float X = abs(Mov.X * BLOCK_SIZE), Y = abs(Mov.Y * BLOCK_SIZE);
+		Mov += Vel * fTime;
+		int X = abs(Mov.X * BLOCK_SIZE), Y = abs(Mov.Y * BLOCK_SIZE);
 		float MovementAtom = 1.0f / BLOCK_SIZE;
-		float Xdir = X / abs(X), Ydir = Y / abs(Y);
+
+		int Xdir = 0, Ydir = 0;
+		if(X > 0) Xdir = (int)(Mov.X * BLOCK_SIZE) / abs(Mov.X * BLOCK_SIZE);
+		if(Y > 0) Ydir = (int)(Mov.Y * BLOCK_SIZE) / abs(Mov.Y * BLOCK_SIZE);
+
 		while(X > 0 || Y > 0) {
 			if(X > 0) {
-				if(CanMove(CVector(X * MovementAtom, 0), pMap)) {
+				if(CanMove(CVector(Xdir * MovementAtom, 0), pMap)) {
 					Pos.X += MovementAtom * Xdir;
-					--X;
-				} else { X = 0; Mov.X = 0; }
+					Mov.X -= Xdir * MovementAtom; --X;
+				} else { X = 0; Vel.X = Mov.X = 0; }
 			}
 			if(Y > 0) {
-				if(CanMove(CVector(0, Y * MovementAtom), pMap)) {
+				if(CanMove(CVector(0, Ydir * MovementAtom), pMap)) {
 					Pos.Y += MovementAtom * Ydir;
-					--Y;
-				} else { Y = 0; Mov.Y = 0; }
+					Mov.Y -= Ydir * MovementAtom; --Y;
+				} else { Y = 0; Vel.Y = Mov.Y = 0; }
 			}
 		}
 		/*if(CanMove(Mov * fTime, pMap))
@@ -87,8 +92,8 @@ void CEntity::OnMove(float fTime, CMap* pMap)
 		else Mov = CVector(0,0); //Stop the Entity*/
 	}
 
-	Mov *= pow(0.125f, fTime * 4);
-	Mov += CVector(0, 9.81f * fTime * 8);
+	Vel *= pow(0.125f, fTime * 4);
+	Vel += CVector(0, 9.81f * fTime * 8);
 
 	if(AttackTimer > 0) {
 		AttackTimer -= fTime;
@@ -128,7 +133,7 @@ void CEntity::OnHurt(CMap *pMap, CEntity *pAttacker)
 void CEntity::Jump(CVector JumpDirection, float DoubleJumpDelay, CMap *pMap)
 {
 	if(CanJump(pMap)) {
-		Mov += JumpDirection;
+		Vel += JumpDirection;
 		JumpTimer += DoubleJumpDelay;
 	}
 }
