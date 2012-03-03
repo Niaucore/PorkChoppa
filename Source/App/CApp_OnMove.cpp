@@ -23,10 +23,5 @@ void CApp::OnMove(float fTime)
 		Map.GetPlayer()->Jump(CVector(0, -20), &Map);
 	}
 
-	if(Input.Pressed(CKey::X) && Map.GetPlayer()->AttackTimer == 0) {
-		Map.GetPlayer()->Attack(&Map);
-		Map.GetPlayer()->AttackTimer += 0.5f;
-	}
-
 	Map.OnMove(fTime);
 }

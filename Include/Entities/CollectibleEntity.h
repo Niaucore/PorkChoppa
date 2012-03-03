@@ -15,7 +15,7 @@ private:
 	bool IsCollected;
 
 public:
-	CollectibleEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size, CVector InitialPos) : CEntity(SpriteX, SpriteY, Half_Size, InitialPos, 1), VanishTimer(0.0f), IsCollected(false) { }
+	CollectibleEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size, CVector InitialPos) : CEntity(SpriteX, SpriteY, Half_Size, InitialPos), VanishTimer(0.0f), IsCollected(false) { }
 	~CollectibleEntity();
 
 	CVector_Ui8 GetSprite(CMap* pMap);

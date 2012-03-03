@@ -9,8 +9,6 @@
 
 CVector_Ui8 CEntity::GetSprite(CMap* CMap)
 {
-	if (Health < 3)
-		return CVector_Ui8(0, 1);
 	if (FacingLeft)
 		return Sprite;
 	else return (Sprite + CVector_Ui8(1, 0));
@@ -107,12 +105,6 @@ void CEntity::OnMove(float fTime, CMap* pMap)
 		}
 	}
 
-	if (AttackTimer > 0) {
-		AttackTimer -= fTime;
-		if (AttackTimer < 0)
-			AttackTimer = 0.0f;
-	}
-
 	if(!IsCollectible()) { //Collect Things
 		PtrList<CEntity*> CollectibleList = pMap->GetEntitiesInRadius(Pos, 1);
 		for(Uint16 i=0;i<CollectibleList.size();i++) {
@@ -121,32 +113,6 @@ void CEntity::OnMove(float fTime, CMap* pMap)
 			else CollectibleList[i]->OnCollect(this, pMap);
 		}
 	}
-}
-
-void CEntity::Attack(CMap *pMap)
-{
-	CVector AttackPoint = Pos + GetEntityCorner(FacingLeft ? CVector(-1, 0) : CVector(1, 0)) * 2.0f;
-	CVector EAttackPointY = AttackPoint + CVector(0, ((AttackPoint.Y < 0.5f) ? 1 : -1)); //Extended AttackPoint in Y direction
-	CVector EAttackPointX = AttackPoint + CVector(((AttackPoint.X < 0.5f) ? -1 : 1), 0);
-
-	PtrList<CEntity*> EntityList = pMap->GetTileEntityList(AttackPoint);
-	PtrList<CEntity*> EEntityListY = pMap->GetTileEntityList(EAttackPointY);
-	PtrList<CEntity*> EEntityListX = pMap->GetTileEntityList(EAttackPointX);
-
-	PtrList<CEntity*> AttackList = PtrList<CEntity*>::join(EntityList,
-			PtrList<CEntity*>::join(EEntityListY, EEntityListX));
-	for(Uint16 i = 0;i < AttackList.size();i++) {
-		if (AttackList[i] == this)
-			continue;
-		AttackList[i]->OnHurt(pMap, this);
-		if (AttackList[i]->Health == 0)
-			pMap->RemoveEntity(pMap->GetEntityId(AttackList[i]));
-	}
-}
-
-void CEntity::OnHurt(CMap *pMap, CEntity *pAttacker)
-{
-	Health--;
 }
 
 void CEntity::Jump(CVector JumpDirection, CMap* pMap)
@@ -163,9 +129,6 @@ void CEntity::OnRender(SDL_Surface* pTarget, CMap* pMap)
 	Uint8 SpriteY = Sprite.Y;
 
 	gTileSet.RenderTile(SpriteX, SpriteY, pTarget, Pos.X - HalfSize, Pos.Y - HalfSize);
-
-	if (AttackTimer > 0.25f)
-		gTileSet.RenderTile(1, 1, pTarget, Pos.X + (FacingLeft ? -HalfSize - 1 : HalfSize), Pos.Y - HalfSize); //if the entity is facing right, the Attack-indicator has to be on the Tile to the right which ENDS on the Entity's Left side(It begins 1 TileW to the left)
 }
 
 bool CEntity::IsCollectible()
@@ -176,7 +139,3 @@ bool CEntity::IsCollectible()
 void CEntity::OnCollect(CEntity *pCollector, CMap *pMap)
 {
 }
-
-
-
-

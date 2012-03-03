@@ -31,13 +31,10 @@ public:
 	CVector Vel;//Velocity
 	bool FacingLeft; //Points in the general direction the entity is facing
 
-	Uint8 Health;
-	float AttackTimer;
-
 	int Points;
 
 public:
-	CEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size, CVector InitialPos, Uint8 InitialHealth = 3) : Sprite(CVector_Ui8(SpriteX, SpriteY)), HalfSize(Half_Size), Pos(InitialPos), FacingLeft(false), Health(InitialHealth), AttackTimer(0.0f), Points(0) { }
+	CEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size, CVector InitialPos) : Sprite(CVector_Ui8(SpriteX, SpriteY)), HalfSize(Half_Size), Pos(InitialPos), FacingLeft(false), Points(0) { }
 	virtual ~CEntity() { }
 
 	virtual CVector_Ui8 GetSprite(CMap* pMap);
@@ -47,10 +44,6 @@ public:
 	virtual void Jump(CVector JumpDirection, CMap* pMap);
 
 	virtual bool CanMove(CVector Movement, CMap* pMap);
-
-	virtual void Attack(CMap* pMap);
-
-	virtual void OnHurt(CMap* pMap, CEntity* pAttacker);
 
 	virtual bool CanJump(CMap* pMap);
 
@@ -62,5 +55,4 @@ public:
 	virtual void OnCollect(CEntity* pCollector, CMap* pMap);
 };
 
-#include "Entities/MobEntity.h"
 #include "Entities/CollectibleEntity.h"
