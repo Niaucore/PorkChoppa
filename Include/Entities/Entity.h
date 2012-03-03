@@ -21,7 +21,7 @@ class CEntity;
 
 class CEntity
 {
-private:
+protected:
 	CVector_Ui8 Sprite;
 	float HalfSize;
 
@@ -33,17 +33,18 @@ public:
 
 	Uint8 Health;
 	float AttackTimer;
-	float JumpTimer;
+
+	int Points;
 
 public:
-	CEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size, CVector InitialPos, Uint8 InitialHealth = 3) : Sprite(CVector_Ui8(SpriteX, SpriteY)), HalfSize(Half_Size), Pos(InitialPos), FacingLeft(false), Health(InitialHealth), AttackTimer(0.0f), JumpTimer(0.0f) { }
+	CEntity(Uint8 SpriteX, Uint8 SpriteY, float Half_Size, CVector InitialPos, Uint8 InitialHealth = 3) : Sprite(CVector_Ui8(SpriteX, SpriteY)), HalfSize(Half_Size), Pos(InitialPos), FacingLeft(false), Health(InitialHealth), AttackTimer(0.0f), Points(0) { }
 	virtual ~CEntity() { }
 
 	virtual CVector_Ui8 GetSprite(CMap* pMap);
 
 	virtual CVector GetEntityCorner(CVector MovementDirection);
 
-	virtual void Jump(CVector JumpDirection, float DoubleJumpDelay, CMap* pMap);
+	virtual void Jump(CVector JumpDirection, CMap* pMap);
 
 	virtual bool CanMove(CVector Movement, CMap* pMap);
 
@@ -56,6 +57,10 @@ public:
 	virtual void OnMove(float fTime, CMap* pMap);
 
 	virtual void OnRender(SDL_Surface* pTarget, CMap* pMap);
+
+	virtual bool IsCollectible();
+	virtual void OnCollect(CEntity* pCollector, CMap* pMap);
 };
 
 #include "Entities/MobEntity.h"
+#include "Entities/CollectibleEntity.h"

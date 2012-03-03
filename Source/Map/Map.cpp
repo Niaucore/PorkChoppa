@@ -106,6 +106,10 @@ bool CMap::LoadMapFromFile(const char *FileName)
 				TileList[Y*MapW+X] = CTile::AirTile;
 				AddEntity(new CMobEntity(CVector(0,3), 0.46875f, CVector(X + 0.5f, Y + 0.5f), 3));
 				break;
+			case 'C':
+				TileList[Y*MapW+X] = CTile::AirTile;
+				AddEntity(new CollectibleEntity(2,1, 0.46875f, CVector(X + 0.5f, Y + 0.5f)));
+				break;
 			}
 		}
 		fscanf(File, "\n");
@@ -128,6 +132,21 @@ PtrList<CEntity*> CMap::GetTileEntityList(CVector_Ui16 Pos)
 int CMap::GetEntityId(CEntity *pEntity)
 {
 	return EntityList.GetId(pEntity);
+}
+
+PtrList<CEntity*> CMap::GetEntitiesInRadius(CVector Pos, double Radius)
+{
+	PtrList<CEntity*> Ret;
+	double RadiusSq = Radius * Radius;
+	for(Uint16 i=0;i<EntityList.size();i++) {
+		if(EntityList[i]) {
+			CVector D = (EntityList[i]->Pos - Pos);
+			if(VecLengthSq(D) < RadiusSq) {
+				Ret.Push(EntityList[i]);
+			}
+		}
+	}
+	return Ret;
 }
 
 CEntity* CMap::GetPlayer()

@@ -22,5 +22,13 @@ void CApp::OnRender() {
 		i++;
 	}
 
+	itoa((int)Map.GetPlayer()->Points, FpsString, 10);
+	i = 0;
+	int len = strlen(FpsString);
+	while(FpsString[i] != '\0') {
+		gTileSet.RenderTile(FpsString[i]-'0',15,pDisplay,Map.GetW()-len+i,0);
+		i++;
+	}
+
 	SDL_Flip(pDisplay);
 }

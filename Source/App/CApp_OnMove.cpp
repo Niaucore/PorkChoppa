@@ -20,7 +20,7 @@ void CApp::OnMove(float fTime)
 	}
 
 	if(Input.Pressed(CKey::Space)) {
-		Map.GetPlayer()->Jump(CVector(0, -40), 0.75, &Map);
+		Map.GetPlayer()->Jump(CVector(0, -20), &Map);
 	}
 
 	if(Input.Pressed(CKey::X) && Map.GetPlayer()->AttackTimer == 0) {

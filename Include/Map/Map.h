@@ -11,6 +11,10 @@ class CMap;
 
 #define BLOCK_SIZE 32
 
+#define MAX_GRAVITY_CHECKS 4
+
+#define MAX(x,y) (x>y?x:y)
+
 #include <math.h>
 
 #include <SDL/SDL.h>
@@ -49,6 +53,8 @@ public:
 	CTile*& GetTile(Uint16 X, Uint16 Y);
 
 	PtrList<CEntity*> GetTileEntityList(CVector_Ui16 Pos);
+
+	PtrList<CEntity*> GetEntitiesInRadius(CVector Pos, double Radius);
 
 	void ClearMap(CTile* ClearTile);
 

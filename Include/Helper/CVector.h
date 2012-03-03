@@ -80,6 +80,11 @@ template<class T> inline bool operator != (const CVector_<T>& a, const CVector_<
 	return ((a.X != b.X) || (a.Y != b.Y));
 }
 
+template<class T> inline double VecLengthSq(const CVector_<T>& v)
+{
+	return v.X * v.X + v.Y * v.Y;
+}
+
 typedef CVector_<float> CVector_f;
 typedef CVector_<Uint8> CVector_Ui8;
 typedef CVector_<Uint16> CVector_Ui16;
