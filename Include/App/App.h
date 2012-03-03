@@ -34,9 +34,9 @@ private:
 public:
 	CApp();
 
-	int OnExecute();
+	int OnExecute(const char* LevelName);
 
-	bool OnInit();
+	bool OnInit(const char* LevelName);
 	void OnExit();
 
 	void OnEvent(SDL_Event* pEvent);

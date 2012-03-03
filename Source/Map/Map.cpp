@@ -77,6 +77,7 @@ void CMap::OnMove(float fTime)
 bool CMap::LoadMapFromFile(const char *FileName)
 {
 	FILE* File = fopen(FileName, "r");
+	if(File == NULL) return false;
 
 	if(fscanf(File, "MAP X:%hu,Y:%hu\n", &MapW, &MapH) < 2)
 		return false;

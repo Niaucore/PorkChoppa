@@ -7,11 +7,11 @@
 
 #include "App/App.h"
 
-bool CApp::OnInit() {
+bool CApp::OnInit(const char* LevelName) {
 	if (SDL_Init(SDL_INIT_VIDEO) > 0)
 		return false;
 
-	if(!Map.LoadMapFromFile("Maps/1.map.txt"))
+	if(!Map.LoadMapFromFile(LevelName))
 		return false;
 
 	if ((pDisplay = SDL_SetVideoMode(Map.GetW() * 32, Map.GetH() * 32, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)

@@ -16,8 +16,8 @@ CApp::CApp() {
 	FPS = 0;
 }
 
-int CApp::OnExecute() {
-	if (!OnInit())
+int CApp::OnExecute(const char* LevelName) {
+	if (!OnInit(LevelName))
 		return -1;
 
 	SDL_Event Event;
