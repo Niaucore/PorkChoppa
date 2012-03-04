@@ -10,17 +10,17 @@
 void CApp::OnMove(float fTime)
 {
 
-	if(Input.Pressed(CKey::Left) && Map.GetPlayer()->Vel.X > -3) {
-		Map.GetPlayer()->Vel += CVector(-40 * fTime, 0);
+	if(Input.Pressed(CKey::Left) && Map.GetPlayer()->Vel.X > -Map.GetMaxSpeed()) {
+		Map.GetPlayer()->Vel += CVector(-Map.GetMoveAccl() * fTime, 0);
 		Map.GetPlayer()->FacingLeft = true;
 	}
-	if(Input.Pressed(CKey::Right) && Map.GetPlayer()->Vel.X < 3) {
-		Map.GetPlayer()->Vel += CVector(40 * fTime, 0);
+	if(Input.Pressed(CKey::Right) && Map.GetPlayer()->Vel.X < Map.GetMaxSpeed()) {
+		Map.GetPlayer()->Vel += CVector(Map.GetMoveAccl() * fTime, 0);
 		Map.GetPlayer()->FacingLeft = false;
 	}
 
 	if(Input.Pressed(CKey::Space)) {
-		Map.GetPlayer()->Jump(CVector(0, -20), &Map);
+		Map.GetPlayer()->Jump(CVector(0, -Map.GetJumpAccl()), &Map);
 	}
 
 	Map.OnMove(fTime);

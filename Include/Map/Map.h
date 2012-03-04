@@ -34,6 +34,8 @@ private:
 
 	Uint16 MapW, MapH;
 
+	float JumpAccl, MoveAccl, MaxSpeed, Gravity, Slowdown;
+
 	int PlayerEntity;
 
 public:
@@ -43,6 +45,12 @@ public:
 
 	Uint16 GetW() { return MapW; }
 	Uint16 GetH() { return MapH; }
+
+	float GetJumpAccl() { return JumpAccl; }
+	float GetMoveAccl() { return MoveAccl; }
+	float GetMaxSpeed() { return MaxSpeed; }
+	float GetGravity()  { return Gravity;  }
+	float GetSlowdown() { return Slowdown; }
 
 	int AddEntity(CEntity* pEntity);
 	void RemoveEntity(int Id);

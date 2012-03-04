@@ -82,6 +82,9 @@ bool CMap::LoadMapFromFile(const char *FileName)
 	if(fscanf(File, "MAP X:%hu,Y:%hu\n", &MapW, &MapH) < 2)
 		return false;
 
+	if(fscanf(File, "GRAV:%f,SLOWDOWN:%f,ACCL:%f,JUMP:%f,MAX_SPEED:%f\n", &Gravity, &Slowdown, &MoveAccl, &JumpAccl, &MaxSpeed) < 5)
+		return false;
+
 	OnInit(MapW, MapH);
 
 	for(Uint16 Y=0;Y<MapH;Y++) {

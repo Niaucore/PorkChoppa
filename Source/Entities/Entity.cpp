@@ -65,11 +65,11 @@ void CEntity::OnMove(float fTime, CMap* pMap)
 	}
 
 	if (CanMove(CVector(0, MovementAtom), pMap))
-		Vel += CVector(0, 9.81f * fTime * 8);
+		Vel += CVector(0, pMap->GetGravity() * fTime);
 
 	if (Vel != CVector(0, 0)) {
 
-		Vel *= pow(0.125f, fTime * 4);
+		Vel *= pow(pMap->GetSlowdown(), fTime);
 
 		Mov += Vel * fTime;
 		int X = abs(Mov.X * BLOCK_SIZE), Y = abs(Mov.Y * BLOCK_SIZE);
