@@ -8,11 +8,12 @@
 #include "App/App.h"
 
 CApp::CApp() {
-	pDisplay = pBackground = NULL;
+	pDisplay = pGameOver = NULL;
 	Running = true;
 	Pause = true;
 
 	m_fTime = 0;
+	GameOverCheckTime = 0;
 	FPS = 0;
 }
 

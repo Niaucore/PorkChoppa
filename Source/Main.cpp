@@ -8,7 +8,7 @@
 #include "App/App.h"
 
 int main(int argc, char** argv) {
-	const char* LevelName = (argc > 1) ? argv[1] : "Maps/1.map.txt";
+	const char* LevelName = (argc > 1) ? argv[1] : "Maps/Test.map.txt";
 	CApp App;
 	return App.OnExecute(LevelName);
 }

@@ -17,8 +17,9 @@ bool CApp::OnInit(const char* LevelName) {
 	if ((pDisplay = SDL_SetVideoMode(Map.GetW() * 32, Map.GetH() * 32, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
 		return false;
 
-	if((pBackground = CSurface::Load("gfx/Background.bmp")) == NULL)
-			return false;
+
+	if((pGameOver = CSurface::Load("gfx/GameOver.bmp")) == NULL)
+		return false;
 
 	if(!gTileSet.OnInit("gfx/TileSet.bmp", 32, 32))
 		return false;
@@ -32,7 +33,7 @@ void CApp::OnExit()
 
 	gTileSet.OnExit();
 
-	SDL_FreeSurface(pBackground);
+	SDL_FreeSurface(pGameOver);
 
 	SDL_FreeSurface(pDisplay);
 	SDL_Quit();

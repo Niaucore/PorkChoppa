@@ -9,6 +9,13 @@
 
 void CApp::OnMove(float fTime)
 {
+	if(Map.GameOver())
+		return;
+
+	if(Input.Pressed(CKey::Reset)) {
+		Map.OnExit();
+		Map.LoadMapFromFile(Map.GetLevelName());
+	}
 
 	if(Input.Pressed(CKey::Left) && Map.GetPlayer()->Vel.X > -Map.GetMaxSpeed()) {
 		Map.GetPlayer()->Vel += CVector(-Map.GetMoveAccl() * fTime, 0);
@@ -24,4 +31,9 @@ void CApp::OnMove(float fTime)
 	}
 
 	Map.OnMove(fTime);
+
+	if(GameOverCheckTime > 0.2f) {
+		Map.UpdateNumbers();
+		GameOverCheckTime = 0;
+	} else GameOverCheckTime += fTime;
 }

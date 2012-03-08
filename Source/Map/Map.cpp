@@ -10,6 +10,9 @@
 CMap::CMap()
 {
 	PlayerEntity = -1;
+	IsGameOver = false;
+	NumRemainingCollectibles = 1;
+	LevelName = NULL;
 }
 
 int CMap::AddEntity(CEntity* pEntity)
@@ -74,8 +77,12 @@ void CMap::OnMove(float fTime)
 			EntityList[i]->OnMove(fTime, this);
 }
 
-bool CMap::LoadMapFromFile(const char *FileName)
+bool CMap::LoadMapFromFile(const char* FileName)
 {
+	EntityList.clear();
+
+	LevelName = FileName;
+
 	FILE* File = fopen(FileName, "r");
 	if(File == NULL) return false;
 
@@ -152,6 +159,19 @@ PtrList<CEntity*> CMap::GetEntitiesInRadius(CVector Pos, double Radius)
 CEntity* CMap::GetPlayer()
 {
 	return GetEntity(PlayerEntity);
+}
+
+void CMap::UpdateNumbers()
+{
+	NumRemainingCollectibles = 0;
+
+	for(Uint16 i=0;i<EntityList.size();i++) {
+		if(EntityList[i] && EntityList[i]->IsCollectible()) {
+			++NumRemainingCollectibles;
+		}
+	}
+	if(NumRemainingCollectibles > 0) IsGameOver = false;
+	else IsGameOver = true;
 }
 
 void CMap::OnRender(SDL_Surface* pTarget)

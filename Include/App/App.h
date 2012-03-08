@@ -20,7 +20,7 @@ class CApp;
 class CApp {
 private:
 	SDL_Surface* pDisplay;
-	SDL_Surface* pBackground;
+	SDL_Surface* pGameOver;
 
 	bool Running;
 
@@ -30,6 +30,7 @@ private:
 
 	float FPS;
 	float m_fTime;
+	float GameOverCheckTime;
 
 public:
 	CApp();

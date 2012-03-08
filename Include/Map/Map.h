@@ -38,6 +38,11 @@ private:
 
 	int PlayerEntity;
 
+	bool IsGameOver;
+	Uint16 NumRemainingCollectibles;
+
+	const char* LevelName;
+
 public:
 	CMap();
 
@@ -51,6 +56,12 @@ public:
 	float GetMaxSpeed() { return MaxSpeed; }
 	float GetGravity()  { return Gravity;  }
 	float GetSlowdown() { return Slowdown; }
+
+	const char* GetLevelName() { return LevelName; }
+
+	void UpdateNumbers();
+	bool GameOver() { return IsGameOver; }
+	Uint16 RemainingPoints() { return NumRemainingCollectibles; }
 
 	int AddEntity(CEntity* pEntity);
 	void RemoveEntity(int Id);
